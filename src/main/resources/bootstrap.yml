@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: user
+  cloud:
+    config:
+      uri: http://lcj0821.synology.me:8088/
+inner:
+  lastOrder: http://lcj0821.synology.me:8090/order/inner/last_order
+
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  
+  

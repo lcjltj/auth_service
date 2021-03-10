@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="spring.cloud.auth.mapper.UserMapper">
+	
+	<insert id="registerUser" parameterType="spring.cloud.auth.entity.User">
+		INSERT INTO idus_user(
+						name,
+						nick_name,
+						password,
+						phone,
+						email,
+						gender,
+						create_date
+		)
+		VALUES(
+			#{name},
+			#{nickName},
+			#{password},
+			#{phone},
+			#{email},
+			#{gender},
+			#{createDate}
+		)				
+	</insert>
+	
+	<select id="findByEmailOrNickName" parameterType="spring.cloud.auth.entity.User" resultType="spring.cloud.auth.entity.User">
+		SELECT 
+			email,
+			nick_name
+		FROM idus_user
+		WHERE email = #{email}
+		OR nick_name = #{nickName}
+	</select>
+	
+	<select id="findByEmail" parameterType="String" resultType="spring.cloud.auth.entity.User">
+		SELECT 
+			number,
+			name,
+			nick_name,
+			password,
+			role
+		FROM idus_user
+		WHERE email = #{email}
+	</select>
+	
+	<select id="getUserDetail" parameterType="Long" resultType="spring.cloud.auth.entity.User">
+		SELECT
+			number,
+			name,
+			nick_name,
+			phone,
+			email,
+			gender,
+			role
+		FROM idus_user
+		WHERE number = #{number}
+	</select>
+	
+	<select id="getNumberOfUser" resultType="Long">
+		SELECT count(number)
+		FROM idus_user
+		<if test='searchType != null and keyword != null'>
+			WHERE MATCH (${searchType}) AGAINST (#{keyword} IN BOOLEAN MODE);
+		</if>
+	</select> 
+	
+	<select id="getUserList" resultType="spring.cloud.auth.entity.User">
+		SELECT 
+			number,
+			name,
+			nick_name,
+			email,
+			phone,
+			gender
+		FROM idus_user
+		<if test='search.searchType != null and search.keyword != null'>
+			WHERE MATCH (${search.searchType}) AGAINST (#{search.keyword} IN BOOLEAN MODE)
+		</if>
+		LIMIT ${pagination.startRowNum}, #{pagination.pageRowNum};
+	</select>
+</mapper>
