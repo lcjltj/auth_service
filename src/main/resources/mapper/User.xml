@@ -19,7 +19,7 @@
 			#{phone},
 			#{email},
 			#{gender},
-			#{createDate}
+			NOW()
 		)				
 	</insert>
 	

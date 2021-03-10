@@ -66,7 +66,6 @@ public class RequestRegister {
 				.phone(phone)
 				.email(email)
 				.gender(gender)
-				.createDate(new Date())
 				.build();
 	}
 }
