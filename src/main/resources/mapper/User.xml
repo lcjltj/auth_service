@@ -4,13 +4,13 @@
 	
 	<insert id="registerUser" parameterType="spring.cloud.auth.entity.User">
 		INSERT INTO idus_user(
-						name,
-						nick_name,
-						password,
-						phone,
-						email,
-						gender,
-						create_date
+			name,
+			nick_name,
+			password,
+			phone,
+			email,
+			gender,
+			create_date
 		)
 		VALUES(
 			#{name},
